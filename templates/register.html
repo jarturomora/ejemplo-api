@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
+    <script>
+        function validarFormulario(event) {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm_password").value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                alert("Formato de correo inválido.");
+                event.preventDefault();
+                return;
+            }
+            if (password !== confirmPassword) {
+                alert("Las contraseñas no coinciden.");
+                event.preventDefault();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Registro de Usuario</h1>
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+    {% if success %}
+        <p style="color:green;">{{ success }}</p>
+    {% endif %}
+    <form method="post" action="/register" onsubmit="validarFormulario(event)">
+        <label>Usuario:</label><br>
+        <input type="text" name="username" required><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" id="email" required><br><br>
+
+        <label>Contraseña:</label><br>
+        <input type="password" name="password" id="password" required><br><br>
+
+        <label>Confirmar contraseña:</label><br>
+        <input type="password" id="confirm_password" required><br><br>
+
+        <label>Fecha de nacimiento:</label><br>
+        <input type="date" name="birthdate" required><br><br>
+
+        <input type="submit" value="Registrarse">
+    </form>
+</body>
+</html>
